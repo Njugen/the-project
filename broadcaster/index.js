@@ -1,19 +1,20 @@
 const http = require('http');
 const NATS = require('nats');
 
-let nc;
-try {
-    nc = NATS.connect(
-        {
-            url: process.env.NATS_URL || 'nats://nats:4222'
-        }
-    )
-} catch (err) {
-    nc = {
-        subscribe: (...args) => { },
-        publish: (...args) => { }
-    };
-}
+let nc = NATS.connect(
+    {
+        url: process.env.NATS_URL || 'nats://nats:4222'
+    }
+)
+
+nc.on('error', (err) => {
+    console.error("NATS connection error:", err);
+});
+
+
+nc.subscribe = (...args) => { }
+nc.unsubscribe = (...args) => { }
+nc.publish = (...args) => { }
 
 let isBusy = false;
 
