@@ -2,26 +2,22 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 images:
-- name: CRONJOB-PUBLISH
-  newName: njugen/todo-publish
-  newTag: 4d8fbbb85336256415a5846daae3c99ce9135f4f
-- name: TODO-BACKEND
-  newName: njugen/todo-backend
-  newTag: 4d8fbbb85336256415a5846daae3c99ce9135f4f
-- name: TODO-BROADCASTER
-  newName: njugen/todo-broadcaster
-  newTag: 4d8fbbb85336256415a5846daae3c99ce9135f4f
-- name: TODO-FRONTEND
-  newName: njugen/todo-app
-  newTag: 4d8fbbb85336256415a5846daae3c99ce9135f4f
+  - name: TODO-FRONTEND
+    newName: njugen/todo-app
+  - name: TODO-BACKEND
+    newName: njugen/todo-backend
+  - name: TODO-BROADCASTER
+    newName: njugen/todo-broadcaster
+  - name: CRONJOB-PUBLISH
+    newName: njugen/todo-publish
 
 resources:
-- manifests/namespace.yaml
-- manifests/configmap.yaml
-- manifests/cronjob.yaml
-- manifests/service.yaml
-- manifests/statefulset.yaml
-- manifests/ingress.yaml
-- manifests/pv.yaml
-- manifests/pvc.yaml
-- manifests/rollout.yaml
+  - manifests/namespace.yaml
+  - manifests/configmap.yaml
+  - manifests/cronjob.yaml
+  - manifests/statefulset.yaml
+  - manifests/ingress.yaml
+  - manifests/pv.yaml
+  - manifests/pvc.yaml
+  - manifests/service.yaml
+  - manifests/rollout.yaml
