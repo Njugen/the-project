@@ -2,7 +2,7 @@ const NATS = require('nats');
 const { unsubscribe } = require('node:diagnostics_channel');
 
 let NATSCounter = 0;
-const hasNATSConnection = true;
+let hasNATSConnection = true;
 let nc = NATS.connect(
     {
         url: process.env.NATS_URL || 'nats://nats:4222'
@@ -31,7 +31,7 @@ const checkTopic = async (subject) => {
 
     const ready = await new Promise((resolve, reject) => {
         console.log("BACKEND NAT E")
-        if (!nc.subscribe()) reject('NATS not connected')
+        if (!hasNATSConnection) reject('NATS not connected')
         const subscription = nc.subscribe(subject, (message) => {
             console.log("BACKEND NAT F")
             if (!message) {
