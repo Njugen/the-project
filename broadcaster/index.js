@@ -1,12 +1,21 @@
 const http = require('http');
 const NATS = require('nats');
 
-const nc = NATS.connect(
-    {
-        url: process.env.NATS_URL || 'nats://nats:4222'
-    }
-)
+let nc = undefined;
 
+try {
+    nc = NATS.connect(
+        {
+            url: process.env.NATS_URL || 'nats://nats:4222'
+        }
+    )
+} catch (error) {
+    if (!nc) {
+        nc.publish = (...args) => { }
+        nc.subscribe = (...args) => { }
+    }
+    console.error("Error connecting to NATS:", error);
+}
 let isBusy = false;
 
 const forwardToExternalService = async (message) => {
