@@ -1,10 +1,21 @@
 const NATS = require('nats');
 
-const nc = NATS.connect(
-    {
-        url: process.env.NATS_URL || 'nats://nats:4222'
+let nc = undefined;
+
+try {
+    nc = NATS.connect(
+        {
+            url: process.env.NATS_URL || 'nats://nats:4222'
+        }
+    )
+} catch (error) {
+    if (!nc) {
+        nc.publish = (...args) => { }
+        nc.subscribe = (...args) => { }
+        nc.unsubscribe = (...args) => { }
     }
-)
+    console.error("Error connecting to NATS:", error);
+}
 console.log("NATS URL:", process.env.NATS_URL || 'nats://nats:4222');
 nc.subscribe("MAPPER_STATUS", (message) => {
     console.log("The broadcaster has processed and forwarded the message", message);
