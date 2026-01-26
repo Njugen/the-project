@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: todo-app
+  name: todo-backend
   namespace: project
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: todo-app
+      app: todo-backend
   strategy:
     canary:
       steps:
@@ -18,27 +18,13 @@ spec:
   template:
     metadata:
       labels:
-        app: todo-app
+        app: todo-backend
     spec:
       volumes:
         - name: todo-storage-volume
           persistentVolumeClaim:
             claimName: todo-storage-claim
       containers:
-        - name: todo-app
-          image: TODO-FRONTEND
-          imagePullPolicy: Always
-          env:
-            - name: PORT
-              value: "3000"
-          ports:
-            - containerPort: 3000
-          volumeMounts:
-            - name: todo-storage-volume
-              mountPath: /usr/src/files/images
-          envFrom:
-            - configMapRef:
-                name: project-config
         - name: todo-backend
           image: TODO-BACKEND
           imagePullPolicy: Always
@@ -65,6 +51,48 @@ spec:
             httpGet:
                path: /
                port: 3001
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: todo-frontend
+  namespace: project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-frontend
+  strategy:
+    canary:
+      steps:
+      - setWeight: 25
+      - setWeight: 50
+      - setWeight: 75
+      - setWeight: 100
+  template:
+    metadata:
+      labels:
+        app: todo-frontend
+    spec:
+      volumes:
+        - name: todo-storage-volume
+          persistentVolumeClaim:
+            claimName: todo-storage-claim
+      containers:
+        - name: todo-frontend
+          image: TODO-FRONTEND
+          imagePullPolicy: Always
+          env:
+            - name: PORT
+              value: "3000"
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: todo-storage-volume
+              mountPath: /usr/src/files/images
+          envFrom:
+            - configMapRef:
+                name: project-config
 ---
 apiVersion: apps/v1
 kind: Deployment
