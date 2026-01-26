@@ -7,7 +7,7 @@ const {
     runAnonymousImagePrep
 } = require('./scripts/utils/randomImageHandling');
 const db = require('./scripts/utils/database');
-const { sendDataToNATS } = require('./scripts/utils/nats');
+
 
 const port = process.env.PORT || 3000;
 console.log("PORT", port);
@@ -71,7 +71,7 @@ const updateTodoItems = async (req, res) => {
                     const { id, completed } = data;
 
                     const result = await db.updateTodoItem(id, completed);
-                    await sendDataToNATS("MAPPER_DATA", `Todo item ${id} updated`, true);
+
                     res.statusCode = 200;
                     res.setHeader("Content-Type", "application/json");
                     const payload = JSON.stringify({ success: result });
@@ -119,7 +119,7 @@ const createTodo = (req, res) => {
                         res.end(payload);
                     } else {
                         await db.addTodoItem(todoText);
-                        await sendDataToNATS("MAPPER_DATA", todoText, false);
+
 
                         const todos = await db.getAllTodoItems();
 
