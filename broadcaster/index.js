@@ -6,22 +6,11 @@ let nc = NATS.connect(
         url: process.env.NATS_URL || 'nats://nats:4222'
     }
 )
-nc.on('error', (err) => {
-    console.error("NATS connection error:", err);
-});
-nc.publish = (...args) => { }
-nc.subscribe = (...args) => { }
-nc.unsubscribe = (...args) => { }
-
-nc.on('error', (err) => {
-    console.error("NATS connection error:", err);
-});
 
 
-nc.subscribe = (...args) => { }
-nc.unsubscribe = (...args) => { }
-nc.publish = (...args) => { }
-
+nc.publish = (...args) => { return false }
+nc.subscribe = (...args) => { return false }
+nc.unsubscribe = (...args) => { return false }
 let isBusy = false;
 
 const forwardToExternalService = async (message) => {

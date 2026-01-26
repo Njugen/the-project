@@ -9,9 +9,9 @@ let nc = NATS.connect(
 nc.on('error', (err) => {
     console.error("NATS connection error:", err);
 });
-nc.publish = (...args) => { }
-nc.subscribe = (...args) => { }
-nc.unsubscribe = (...args) => { }
+nc.publish = (...args) => { return false }
+nc.subscribe = (...args) => { return false }
+nc.unsubscribe = (...args) => { return false }
 
 console.log("NATS URL:", process.env.NATS_URL || 'nats://nats:4222');
 nc.subscribe("MAPPER_STATUS", (message) => {
@@ -19,8 +19,10 @@ nc.subscribe("MAPPER_STATUS", (message) => {
 });
 
 const checkTopic = async (subject) => {
+
     const ready = await new Promise((resolve, reject) => {
         console.log("BACKEND NAT E")
+        if (!nc.subscribe()) reject('NATS not connected')
         const subscription = nc.subscribe(subject, (message) => {
             console.log("BACKEND NAT F")
             if (!message) {
@@ -31,6 +33,7 @@ const checkTopic = async (subject) => {
             console.log("BACKEND NAT H")
             resolve("Subscribed successfully")
         })
+
         console.log("BACKEND NAT I")
         //nc.publish(subject, JSON.stringify({ user: 'system', message: 'ping' }))
     })
