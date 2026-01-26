@@ -6,6 +6,12 @@ let nc = NATS.connect(
         url: process.env.NATS_URL || 'nats://nats:4222'
     }
 )
+nc.on('error', (err) => {
+    console.error("NATS connection error:", err);
+});
+nc.publish = (...args) => { }
+nc.subscribe = (...args) => { }
+nc.unsubscribe = (...args) => { }
 
 nc.on('error', (err) => {
     console.error("NATS connection error:", err);
