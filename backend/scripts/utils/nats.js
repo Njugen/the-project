@@ -1,10 +1,20 @@
 const NATS = require('nats');
+const { unsubscribe } = require('node:diagnostics_channel');
 
-const nc = NATS.connect(
-    {
-        url: process.env.NATS_URL || 'nats://nats:4222'
-    }
-)
+let nc;
+try {
+    nc = NATS.connect(
+        {
+            url: process.env.NATS_URL || 'nats://nats:4222'
+        }
+    )
+} catch (err) {
+    nc = {
+        subscribe: (...args) => { },
+        unsubscribe: (...args) => { },
+        publish: (...args) => { }
+    };
+}
 console.log("NATS URL:", process.env.NATS_URL || 'nats://nats:4222');
 nc.subscribe("MAPPER_STATUS", (message) => {
     console.log("The broadcaster has processed and forwarded the message", message);
