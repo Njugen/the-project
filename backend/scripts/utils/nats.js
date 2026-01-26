@@ -1,6 +1,8 @@
 const NATS = require('nats');
 const { unsubscribe } = require('node:diagnostics_channel');
 
+let NATSCounter = 0;
+const hasNATSConnection = true;
 let nc = NATS.connect(
     {
         url: process.env.NATS_URL || 'nats://nats:4222'
@@ -8,11 +10,18 @@ let nc = NATS.connect(
 )
 nc.on('error', (err) => {
     console.error("NATS connection error:", err);
+    hasNATSConnection = false;
 });
-nc.publish = (...args) => { return false }
-nc.subscribe = (...args) => { return false }
-nc.unsubscribe = (...args) => { return false }
+const NATSCheck = setInterval(() => {
+    if (!hasNATSConnection || NATSCounter > 6) {
+        nc.publish = (...args) => { return false }
+        nc.subscribe = (...args) => { return false }
+        nc.unsubscribe = (...args) => { return false }
+        clearInterval(NATSCheck);
+    }
 
+    NATSCounter++;
+}, 1000);
 console.log("NATS URL:", process.env.NATS_URL || 'nats://nats:4222');
 nc.subscribe("MAPPER_STATUS", (message) => {
     console.log("The broadcaster has processed and forwarded the message", message);
