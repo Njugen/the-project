@@ -19,7 +19,7 @@ spec:
     metadata:
       labels:
         app: todo-app
-    spec:
+    spec: 
       volumes:
         - name: todo-storage-volume
           persistentVolumeClaim:
