@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  namespace: project
+  name: todo-publish-worker
+spec:
+  schedule: "* * * * *"
+  concurrencyPolicy: "Forbid"
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 0
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: todo-publish-worker
+            image: CRONJOB-PUBLISH
+            imagePullPolicy: Always
+            envFrom:
+            - configMapRef:
+                name: project-config
+          restartPolicy: OnFailure
