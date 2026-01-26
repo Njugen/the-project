@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  namespace: project
+  name: todo-publish-worker
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: todo-publish-worker
+            image: njugen/todo-publish:2.10
+            imagePullPolicy: Always
+            envFrom:
+            - configMapRef:
+                name: project-config
+          restartPolicy: OnFailure
