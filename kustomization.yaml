@@ -19,9 +19,9 @@ resources:
 - manifests/namespace.yaml
 - manifests/configmap.yaml
 - manifests/cronjob.yaml
+- manifests/service.yaml
 - manifests/statefulset.yaml
 - manifests/ingress.yaml
 - manifests/pv.yaml
 - manifests/pvc.yaml
-- manifests/service.yaml
 - manifests/rollout.yaml
