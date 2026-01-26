@@ -1,11 +1,19 @@
 const http = require('http');
 const NATS = require('nats');
 
-const nc = NATS.connect(
-    {
-        url: process.env.NATS_URL || 'nats://nats:4222'
-    }
-)
+let nc;
+try {
+    nc = NATS.connect(
+        {
+            url: process.env.NATS_URL || 'nats://nats:4222'
+        }
+    )
+} catch (err) {
+    nc = {
+        subscribe: (...args) => { },
+        publish: (...args) => { }
+    };
+}
 
 let isBusy = false;
 
