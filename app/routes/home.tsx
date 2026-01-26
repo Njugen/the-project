@@ -2,7 +2,7 @@ import Index from "~/contents";
 import type { Route } from "./+types/home";
 import { createTodo, updateTodoItem, getAllTodos } from "./forms/todo";
 
-const serviceUrl = "http://todo-app-service:3001";
+const serviceUrl = "http://127.0.0.1:1235";
 
 export async function loader() {
   return await getAllTodos(serviceUrl);
