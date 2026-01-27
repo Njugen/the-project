@@ -26,7 +26,7 @@ spec:
             claimName: todo-storage-claim
       containers:
         - name: todo-app
-          image: njugen/todo-app:4.6
+          image: TODO-FRONTEND
           imagePullPolicy: Always
           env:
             - name: PORT
@@ -40,7 +40,7 @@ spec:
             - configMapRef:
                 name: project-config
         - name: todo-backend
-          image: njugen/todo-backend:4.6
+          image: TODO-BACKEND
           imagePullPolicy: Always
           env:
             - name: PORT
@@ -83,7 +83,7 @@ spec:
     spec:
       containers:
         - name: todo-broadcaster
-          image: njugen/todo-broadcaster:4.6
+          image: TODO-BROADCASTER
           imagePullPolicy: Always
           envFrom:
             - configMapRef:
