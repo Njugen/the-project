@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 **/node_modules
 **/dist
 **/.log
@@ -5,3 +6,7 @@
 **/key.txt
 **/sops.exe
 **/private-key.json
+=======
+node_modules
+build
+>>>>>>> c874101 (Added README.md)
