@@ -4,6 +4,7 @@ kind: Kustomization
 images:
 - name: CRONJOB-PUBLISH
   newName: njugen/todo-publish
+<<<<<<< HEAD
   newTag: 6224ae8c24b429448771ed55ead41bf86328e4b7
 - name: TODO-BACKEND
   newName: njugen/todo-backend
@@ -14,6 +15,18 @@ images:
 - name: TODO-FRONTEND
   newName: njugen/todo-app
   newTag: 6224ae8c24b429448771ed55ead41bf86328e4b7
+=======
+  newTag: 9f8f8b1b13603b0c710beb899b162cada2c10ae0
+- name: TODO-BACKEND
+  newName: njugen/todo-backend
+  newTag: 9f8f8b1b13603b0c710beb899b162cada2c10ae0
+- name: TODO-BROADCASTER
+  newName: njugen/todo-broadcaster
+  newTag: 9f8f8b1b13603b0c710beb899b162cada2c10ae0
+- name: TODO-FRONTEND
+  newName: njugen/todo-app
+  newTag: 9f8f8b1b13603b0c710beb899b162cada2c10ae0
+>>>>>>> e17ab84 (Pulled and rebased main)
 
 resources:
 - manifests/namespace.yaml
@@ -24,4 +37,8 @@ resources:
 - manifests/pv.yaml
 - manifests/pvc.yaml
 - manifests/service.yaml
+<<<<<<< HEAD
 - manifests/rollout.yaml
+=======
+- manifests/rollout.yaml
+>>>>>>> e17ab84 (Pulled and rebased main)
