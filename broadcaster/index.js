@@ -1,11 +1,29 @@
 const http = require('http');
 const NATS = require('nats');
 
-const nc = NATS.connect(
+let NATSCounter = 0;
+let hasNATSConnection = true;
+let nc = NATS.connect(
     {
         url: process.env.NATS_URL || 'nats://nats:4222'
     }
 )
+
+nc.on('error', (err) => {
+    console.error("NATS connection error:", err);
+    hasNATSConnection = false;
+});
+
+const NATSCheck = setInterval(() => {
+    if (!hasNATSConnection || NATSCounter > 6) {
+        nc.publish = (...args) => { return false }
+        nc.subscribe = (...args) => { return false }
+        nc.unsubscribe = (...args) => { return false }
+        clearInterval(NATSCheck);
+    }
+
+    NATSCounter++;
+}, 1000);
 
 let isBusy = false;
 
