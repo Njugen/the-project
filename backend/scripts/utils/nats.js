@@ -11,8 +11,10 @@ nc.subscribe("MAPPER_STATUS", (message) => {
 });
 
 const checkTopic = async (subject) => {
+
     const ready = await new Promise((resolve, reject) => {
         console.log("BACKEND NAT E")
+        if (!hasNATSConnection) reject('NATS not connected')
         const subscription = nc.subscribe(subject, (message) => {
             console.log("BACKEND NAT F")
             if (!message) {
@@ -23,6 +25,7 @@ const checkTopic = async (subject) => {
             console.log("BACKEND NAT H")
             resolve("Subscribed successfully")
         })
+
         console.log("BACKEND NAT I")
         //nc.publish(subject, JSON.stringify({ user: 'system', message: 'ping' }))
     })

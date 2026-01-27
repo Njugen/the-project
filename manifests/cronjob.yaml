@@ -14,7 +14,7 @@ spec:
         spec:
           containers:
           - name: todo-publish-worker
-            image: njugen/todo-publish:4.5
+            image: CRONJOB-PUBLISH
             imagePullPolicy: Always
             envFrom:
             - configMapRef:
