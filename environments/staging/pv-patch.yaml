@@ -3,4 +3,4 @@ kind: PersistentVolume
 metadata:
   name: todo-pv
 spec:
-  storageClassName: todo-production-storage
+  storageClassName: todo-staging-storage
