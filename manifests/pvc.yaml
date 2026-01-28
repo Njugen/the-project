@@ -2,7 +2,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: todo-storage-claim
-  namespace: project
 spec:
   storageClassName: todo-storage
   accessModes:
