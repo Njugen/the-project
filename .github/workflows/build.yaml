@@ -90,9 +90,27 @@ jobs:
           cd manifests
           kustomize edit set image CRONJOB-PUBLISH=njugen/todo-publish:$GITHUB_SHA
  
-      - name: commit kustomization.yaml to GitHub
+      - name: commit kustomization.yaml to GitHub at branch push
         if: startsWith(github.ref, 'refs/heads/')
         uses: EndBug/add-and-commit@v9
         with:
           add: 'manifests/kustomization.yaml'
           message: New version released ${{ github.sha }} 
+
+      - name: commit kustomization.yaml to GitHub at tag push
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'manifests/kustomization.yaml'
+          message: New version released ${{ github.sha }} 
+          push: false
+        run: |
+          set -euo pipefail
+          TAG="${GITHUB_REF#refs/tags/}"
+
+          git fetch --tags
+          git tag -f "$TAG"
+
+          git push --force-with-lease origin "$TAG"
+        
+       
