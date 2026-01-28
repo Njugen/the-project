@@ -89,9 +89,9 @@ jobs:
         run: |
           cd manifests
           kustomize edit set image CRONJOB-PUBLISH=njugen/todo-publish:$GITHUB_SHA
-
+ 
       - name: commit kustomization.yaml to GitHub
         uses: EndBug/add-and-commit@v9
         with:
           add: 'manifests/kustomization.yaml'
-          message: New version released ${{ github.sha }}
+          message: New version released ${{ github.sha }} 
