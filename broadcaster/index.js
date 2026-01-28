@@ -8,6 +8,7 @@ const nc = NATS.connect(
 )
 
 let isBusy = false;
+const isProduction = process.env.DEPENV === 'production';
 
 const forwardToExternalService = async (message) => {
     /*
@@ -22,12 +23,17 @@ const forwardToExternalService = async (message) => {
 
     isBusy = true;
     try {
-        await fetch(process.env.MOCKAPIURL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(message)
-        });
-        nc.publish('MAPPER_STATUS', JSON.stringify({ user: 'broadcaster', message: 'Message forwarded' }))
+
+        if (isProduction) {
+            await fetch(process.env.MOCKAPIURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(message)
+            });
+            nc.publish('MAPPER_STATUS', JSON.stringify({ user: 'broadcaster', message: 'Message forwarded' }))
+        } else {
+            console.log(JSON.stringify(message));
+        }
     } catch (error) {
         console.error("Error forwarding to external service:", error);
     }

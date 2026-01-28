@@ -5,6 +5,9 @@ images:
 - name: CRONJOB-PUBLISH
   newName: njugen/todo-publish
   newTag: a31ae1e1dffb6e2d991d733e4513bc1230f1b25e
+- name: JOB-BACKUP
+  newName: njugen/todo-backup
+  newTag: a31ae1e1dffb6e2d991d733e4513bc1230f1b25e
 - name: TODO-BACKEND
   newName: njugen/todo-backend
   newTag: a31ae1e1dffb6e2d991d733e4513bc1230f1b25e
@@ -16,12 +19,13 @@ images:
   newTag: a31ae1e1dffb6e2d991d733e4513bc1230f1b25e
 
 resources:
-- manifests/namespace.yaml
-- manifests/configmap.yaml
-- manifests/cronjob.yaml
-- manifests/statefulset.yaml
-- manifests/ingress.yaml
-- manifests/pv.yaml
-- manifests/pvc.yaml
-- manifests/service.yaml
-- manifests/rollout.yaml
+- namespace.yaml
+- configmap.yaml
+- cronjob.yaml
+- cronjobbackup.yaml
+- statefulset.yaml
+- ingress.yaml
+- pv.yaml
+- pvc.yaml
+- service.yaml
+- rollout.yaml

@@ -2,6 +2,8 @@ name: Build and publish application
 
 on:
   push:
+    branches:
+      - main
 
 jobs:
   build-publish:
@@ -49,6 +51,14 @@ jobs:
       - name: Push publisher app
         run: |-
           docker push "njugen/todo-publish:$GITHUB_SHA"
+
+      - name: Build backup app
+        run: |-
+          docker build --tag "njugen/todo-backup:$GITHUB_SHA" ./jobs/backup
+      
+      - name: Push backup app
+        run: |-
+          docker push "njugen/todo-backup:$GITHUB_SHA"
 
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v2

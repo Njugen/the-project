@@ -1,10 +1,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  namespace: project
-  name: todo-publish-worker
+  name: todo-backup-job
 spec:
-  schedule: "* * * * *"
+  schedule: "0 * * * *"
   concurrencyPolicy: "Forbid"
   successfulJobsHistoryLimit: 0
   failedJobsHistoryLimit: 0
@@ -13,10 +12,13 @@ spec:
       template:
         spec:
           containers:
-          - name: todo-publish-worker
-            image: CRONJOB-PUBLISH
+          - name: todo-backup-job
+            image: JOB-BACKUP
             imagePullPolicy: Always
             envFrom:
             - configMapRef:
                 name: project-config
+            env:
+            - name: URL
+              value: "postgres://admin:123456@postgres-service:5432/postgres"
           restartPolicy: OnFailure
