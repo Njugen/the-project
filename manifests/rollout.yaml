@@ -2,7 +2,6 @@ apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   name: todo-app
-  namespace: project
 spec:
   replicas: 1
   selector:
