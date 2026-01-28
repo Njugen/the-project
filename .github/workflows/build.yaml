@@ -115,6 +115,6 @@ jobs:
           git fetch --tags
           git tag -f "$TAG"
 
-          git push --force-with-lease origin "$TAG"
+          git push --force origin "$TAG"
         
        
