@@ -9,6 +9,7 @@ const nc = NATS.connect(
 
 let isBusy = false;
 const isProduction = process.env.DEPENV === 'production';
+console.log("IS PRODUCTION:", isProduction);
 
 const forwardToExternalService = async (message) => {
     /*
