@@ -22,7 +22,6 @@ resources:
 - namespace.yaml
 - configmap.yaml
 - cronjob.yaml
-- cronjobbackup.yaml
 - statefulset.yaml
 - ingress.yaml
 - pv.yaml
