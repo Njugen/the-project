@@ -4,3 +4,5 @@ resources:
   - namespace.yaml
   - ./../../manifests
 namespace: the-project-staging
+patches:
+  - path: deployment-patch.yaml
