@@ -6,4 +6,6 @@ resources:
   - ./../../manifests
 namespace: the-project-production
 patches:
+  - path: pv-patch.yaml
+  - path: pvc-patch.yaml
   - path: configmap-patch.yaml
