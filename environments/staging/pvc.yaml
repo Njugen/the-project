@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: todo-storage-claim
-  namespace: project
+  name: todo-storage-claim-staging
 spec:
-  storageClassName: todo-storage
+  volumeName: todo-staging-pv
+  storageClassName: todo-staging-storage
   accessModes:
     - ReadWriteOnce
   resources:

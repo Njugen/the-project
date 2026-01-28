@@ -2,6 +2,10 @@ name: Build and publish application
 
 on:
   push:
+    branches:
+      - main
+    tags:
+      - 'v*.*.*'
 
 jobs:
   build-publish:
@@ -50,23 +54,67 @@ jobs:
         run: |-
           docker push "njugen/todo-publish:$GITHUB_SHA"
 
+      - name: Build backup app
+        run: |-
+          docker build --tag "njugen/todo-backup:$GITHUB_SHA" ./jobs/backup
+      
+      - name: Push backup app
+        run: |-
+          docker push "njugen/todo-backup:$GITHUB_SHA"
+
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v2
 
       - name: Set frontend app image
-        run: kustomize edit set image TODO-FRONTEND=njugen/todo-app:$GITHUB_SHA
+        run: |
+          cd manifests
+          kustomize edit set image TODO-FRONTEND=njugen/todo-app:$GITHUB_SHA
 
       - name: Set backend app image
-        run: kustomize edit set image TODO-BACKEND=njugen/todo-backend:$GITHUB_SHA
+        run: |
+          cd manifests
+          kustomize edit set image TODO-BACKEND=njugen/todo-backend:$GITHUB_SHA
       
       - name: Set broadcaster app image
-        run: kustomize edit set image TODO-BROADCASTER=njugen/todo-broadcaster:$GITHUB_SHA
+        run: | 
+          cd manifests
+          kustomize edit set image TODO-BROADCASTER=njugen/todo-broadcaster:$GITHUB_SHA
+
+      - name: Set backup app image
+        run: |
+          cd manifests
+          kustomize edit set image JOB-BACKUP=njugen/todo-backup:$GITHUB_SHA
 
       - name: Set publisher app image
-        run: kustomize edit set image CRONJOB-PUBLISH=njugen/todo-publish:$GITHUB_SHA
-
-      - name: commit kustomization.yaml to GitHub
+        run: |
+          cd manifests
+          kustomize edit set image CRONJOB-PUBLISH=njugen/todo-publish:$GITHUB_SHA
+ 
+      - name: commit kustomization.yaml to GitHub at branch push
+        if: startsWith(github.ref, 'refs/heads/')
         uses: EndBug/add-and-commit@v9
         with:
-          add: 'kustomization.yaml'
-          message: New version released ${{ github.sha }}
+          add: 'manifests/kustomization.yaml'
+          message: New version released ${{ github.sha }} 
+
+      - name: commit kustomization.yaml to GitHub at tag push
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'manifests/kustomization.yaml'
+          message: New version released ${{ github.sha }} 
+          push: false
+
+      - name: Update tag to point to latest commit
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="${GITHUB_REF#refs/tags/}"
+
+          git fetch --tags
+          git tag -f "$TAG"
+
+          git push --force origin "$TAG"
+        
+       

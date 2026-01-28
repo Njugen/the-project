@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - pv.yaml
+  - pvc.yaml
+  - ./../../manifests
+namespace: the-project-staging
+patches:
+  - path: rollout-patch.yaml

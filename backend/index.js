@@ -10,7 +10,7 @@ const db = require('./scripts/utils/database');
 const { sendDataToNATS } = require('./scripts/utils/nats');
 
 const port = process.env.PORT || 3000;
-console.log("PORT", port);
+
 let databaseInitialized = false;
 
 const getRandomImage = (req, res) => {
@@ -118,7 +118,9 @@ const createTodo = (req, res) => {
                         const payload = JSON.stringify({ error: message });
                         res.end(payload);
                     } else {
+                        console.log("Adding new TODO item to database:", todoText);
                         await db.addTodoItem(todoText);
+                        console.log("Finished adding TODO item to database.");
                         await sendDataToNATS("MAPPER_DATA", todoText, false);
 
                         const todos = await db.getAllTodoItems();
@@ -215,7 +217,7 @@ const server = http.createServer((req, res) => {
         }
     } else if (methodToLower === 'put') {
         if (pathname.startsWith('/todos')) {
-            console.log("TODO UPDATE request received. Processing...")
+
             return updateTodoItems(req, res).catch(err => {
                 console.error("Failed to update the Todo item:", err);
                 res.statusCode = 500;

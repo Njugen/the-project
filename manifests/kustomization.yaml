@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+images:
+- name: CRONJOB-PUBLISH
+  newName: njugen/todo-publish
+- name: JOB-BACKUP
+  newName: njugen/todo-backup
+- name: TODO-BACKEND
+  newName: njugen/todo-backend
+- name: TODO-BROADCASTER
+  newName: njugen/todo-broadcaster
+- name: TODO-FRONTEND
+  newName: njugen/todo-app
+
+resources:
+- configmap.yaml
+- cronjob.yaml
+- statefulset.yaml
+- ingress.yaml
+- service.yaml
+- rollout.yaml
