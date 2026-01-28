@@ -78,6 +78,11 @@ jobs:
           cd manifests
           kustomize edit set image TODO-BROADCASTER=njugen/todo-broadcaster:$GITHUB_SHA
 
+      - name: Set backup app image
+        run: |
+          cd manifests
+          kustomize edit set image JOB-BACKUP=njugen/todo-backup:$GITHUB_SHA
+
       - name: Set publisher app image
         run: |
           cd manifests

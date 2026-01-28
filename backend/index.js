@@ -118,7 +118,9 @@ const createTodo = (req, res) => {
                         const payload = JSON.stringify({ error: message });
                         res.end(payload);
                     } else {
+                        console.log("Adding new TODO item to database:", todoText);
                         await db.addTodoItem(todoText);
+                        console.log("Finished adding TODO item to database.");
                         await sendDataToNATS("MAPPER_DATA", todoText, false);
 
                         const todos = await db.getAllTodoItems();
