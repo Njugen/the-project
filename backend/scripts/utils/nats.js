@@ -28,6 +28,7 @@ const checkTopic = async (subject) => {
 
         console.log("BACKEND NAT I")
         //nc.publish(subject, JSON.stringify({ user: 'system', message: 'ping' }))
+        resolve("BACKEND NAT K")
     })
     console.log("BACKEND NAT J")
     nc.unsubscribe(ready);
