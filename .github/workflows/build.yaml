@@ -64,16 +64,24 @@ jobs:
         uses: imranismail/setup-kustomize@v2
 
       - name: Set frontend app image
-        run: kustomize edit set image TODO-FRONTEND=njugen/todo-app:$GITHUB_SHA
+        run: |
+          cd manifests
+          kustomize edit set image TODO-FRONTEND=njugen/todo-app:$GITHUB_SHA
 
       - name: Set backend app image
-        run: kustomize edit set image TODO-BACKEND=njugen/todo-backend:$GITHUB_SHA
+        run: |
+          cd manifests
+          kustomize edit set image TODO-BACKEND=njugen/todo-backend:$GITHUB_SHA
       
       - name: Set broadcaster app image
-        run: kustomize edit set image TODO-BROADCASTER=njugen/todo-broadcaster:$GITHUB_SHA
+        run: | 
+          cd manifests
+          kustomize edit set image TODO-BROADCASTER=njugen/todo-broadcaster:$GITHUB_SHA
 
       - name: Set publisher app image
-        run: kustomize edit set image CRONJOB-PUBLISH=njugen/todo-publish:$GITHUB_SHA
+        run: |
+          cd manifests
+          kustomize edit set image CRONJOB-PUBLISH=njugen/todo-publish:$GITHUB_SHA
 
       - name: commit kustomization.yaml to GitHub
         uses: EndBug/add-and-commit@v9
