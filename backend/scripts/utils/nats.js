@@ -14,7 +14,7 @@ const checkTopic = async (subject) => {
 
     const ready = await new Promise((resolve, reject) => {
         console.log("BACKEND NAT E")
-        if (!hasNATSConnection) reject('NATS not connected')
+
         const subscription = nc.subscribe(subject, (message) => {
             console.log("BACKEND NAT F")
             if (!message) {
