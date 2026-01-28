@@ -8,4 +8,3 @@ resources:
 namespace: the-project-staging
 patches:
   - path: rollout-patch.yaml
-  - path: deployment-patch.yaml
