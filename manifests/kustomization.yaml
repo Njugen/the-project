@@ -19,7 +19,6 @@ images:
   newTag: a31ae1e1dffb6e2d991d733e4513bc1230f1b25e
 
 resources:
-- namespace.yaml
 - configmap.yaml
 - cronjob.yaml
 - statefulset.yaml
