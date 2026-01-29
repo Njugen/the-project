@@ -9,3 +9,4 @@ resources:
 namespace: the-project-production
 patches:
   - path: configmap-patch.yaml
+  - path: rollout-patch.yaml
