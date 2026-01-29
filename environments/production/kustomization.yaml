@@ -4,8 +4,8 @@ resources:
   - namespace.yaml
   - cronjobbackup.yaml
   - pv.yaml
+  - pvc.yaml
   - ./../../manifests
 namespace: the-project-production
 patches:
   - path: configmap-patch.yaml
-  - path: pvc-patch.yaml
