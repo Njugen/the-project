@@ -3,7 +3,7 @@ kind: Rollout
 metadata:
   name: todo-app
 spec:
-  replicas: 6
+  replicas: 1
   template:
       spec: 
         volumes:
