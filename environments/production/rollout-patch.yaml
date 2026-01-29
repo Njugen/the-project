@@ -10,3 +10,12 @@ spec:
           - name: todo-storage-volume-production
             persistentVolumeClaim:
               claimName: todo-storage-claim-production
+        containers:
+          - name: todo-app
+            volumeMounts:
+              - name: todo-storage-volume-production
+                mountPath: /usr/src/files/images
+          - name: todo-backend
+            volumeMounts:
+              - name: todo-storage-volume-production
+                mountPath: /usr/src/files/images
