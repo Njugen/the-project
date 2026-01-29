@@ -7,15 +7,6 @@ spec:
   template:
       spec: 
         volumes:
-          - name: todo-storage-volume-production
+          - name: todo-storage-volume
             persistentVolumeClaim:
-              claimName: todo-production-storage-claim
-        containers:
-          - name: todo-app
-            volumeMounts:
-              - name: todo-storage-volume-production
-                mountPath: /usr/src/files/images
-          - name: todo-backend
-            volumeMounts:
-              - name: todo-storage-volume-production
-                mountPath: /usr/src/files/images
+              claimName: todo-storage-claim-production
