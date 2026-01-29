@@ -9,7 +9,7 @@ spec:
         volumes:
           - name: todo-storage-volume-staging
             persistentVolumeClaim:
-              claimName: todo-storage-claim-staging
+              claimName: todo-staging-storage-claim
         containers:
           - name: todo-app
             volumeMounts:
