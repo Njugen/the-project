@@ -4,3 +4,9 @@ metadata:
   name: todo-app
 spec:
   replicas: 1
+  template:
+      spec: 
+        volumes:
+          - name: todo-storage-volume-staging
+            persistentVolumeClaim:
+              claimName: todo-storage-claim-staging
