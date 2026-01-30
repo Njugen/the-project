@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e17ab84 (Pulled and rebased main)
 **/node_modules
 **/dist
 **/.log
@@ -9,10 +5,5 @@
 **/key.txt
 **/sops.exe
 **/private-key.json
-<<<<<<< HEAD
-=======
 node_modules
 build
->>>>>>> c874101 (Added README.md)
-=======
->>>>>>> e17ab84 (Pulled and rebased main)

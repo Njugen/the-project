@@ -1,0 +1,12 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: todo-app
+spec:
+  replicas: 6
+  template:
+      spec: 
+        volumes:
+          - name: todo-storage-volume
+            persistentVolumeClaim:
+              claimName: todo-storage-claim-production

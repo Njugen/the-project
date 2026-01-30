@@ -8,26 +8,25 @@ const nc = NATS.connect(
 )
 
 let isBusy = false;
-
+const isProduction = process.env.DEPENV === 'production';
 const forwardToExternalService = async (message) => {
-    /*
-        message {
-            user: string,
-            message: string
-        }
-    */
-
-    console.log("Broadcaster B");
-    console.log("Forwarding to external service:", message);
-
     isBusy = true;
     try {
-        await fetch(process.env.MOCKAPIURL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(message)
-        });
-        nc.publish('MAPPER_STATUS', JSON.stringify({ user: 'broadcaster', message: 'Message forwarded' }))
+
+        if (isProduction) {
+            await fetch(process.env.MOCKAPIURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(message)
+            });
+            nc.publish('MAPPER_STATUS', JSON.stringify({ user: 'broadcaster', message: 'Message forwarded' }))
+        } else {
+            const data = JSON.stringify(message);
+            console.log(`\n`)
+            console.log(`From ${data.message.user}:\n`)
+            console.log(`${data.message.message}\n`)
+            console.log(`\n`)
+        }
     } catch (error) {
         console.error("Error forwarding to external service:", error);
     }
@@ -36,7 +35,6 @@ const forwardToExternalService = async (message) => {
 
 nc.subscribe('MAPPER_DATA', { queue: 'mapper.workers' }, async (message) => {
     if (isBusy) return;
-    console.log("Broadcaster A");
     const data = JSON.parse(message);
     await forwardToExternalService(data);
 });

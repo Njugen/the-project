@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  namespace: project
   name: todo-db
 spec:
   serviceName: "postgres-service"

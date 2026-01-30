@@ -2,7 +2,6 @@ apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   name: todo-app
-  namespace: project
 spec:
   replicas: 1
   selector:
@@ -69,10 +68,9 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: project
   name: todo-broadcaster
 spec:
-  replicas: 6
+  replicas: 1
   selector:
     matchLabels:
       app: todo-broadcaster

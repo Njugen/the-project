@@ -2,11 +2,9 @@ FROM node:alpine
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm install
+RUN apk add --no-cache postgresql-client bash
 
 COPY . .
 
-EXPOSE 3000
+CMD ["bash", "script.sh"]
 
-CMD ["node", "index.js"]
