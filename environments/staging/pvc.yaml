@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: todo-storage-claim-staging
 spec:
-  volumeMode: todo-storage-pv
+  volumeName: todo-staging-pv
   storageClassName: todo-staging-storage
   accessModes:
     - ReadWriteOnce
