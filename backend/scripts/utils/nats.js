@@ -25,7 +25,7 @@ const checkTopic = async (subject) => {
             console.log("E")
         })
         console.log("F")
-        reject("Failed to check subscription");
+        resolve("Failed to check subscription");
         console.log("G")
     })
 
