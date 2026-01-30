@@ -13,7 +13,6 @@ nc.subscribe("MAPPER_STATUS", (message) => {
 const checkTopic = async (subject) => {
     const ready = await new Promise((resolve, reject) => {
         const subscription = nc.subscribe(subject, (message) => {
-            console.log("AAAAA", message);
             if (!message) {
                 reject('No listeners found')
 
@@ -37,7 +36,7 @@ const sendDataToNATS = async (subject, message, completed) => {
         user: "system",
         message: `${message} (${status})`,
     }
-
+    console.log("SUBJECT", subject, "PAYLOAD", payload);
     nc.publish(subject, JSON.stringify(payload));
 }
 
