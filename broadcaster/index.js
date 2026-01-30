@@ -38,7 +38,7 @@ const forwardToExternalService = async (message) => {
     isBusy = false;
 }
 
-nc.subscribe('MAPPER_DATA', { queue: 'mapper.workers' }, async (message) => {
+nc.subscribe('MAPPER_DATA', async (message) => {
     console.log("a")
     if (isBusy) return;
     console.log("b")
