@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: todo-backup-job
 spec:
-  schedule: "0 * * * *"
+  schedule: "* * * * *"
   concurrencyPolicy: "Forbid"
   successfulJobsHistoryLimit: 0
   failedJobsHistoryLimit: 0
@@ -21,4 +21,11 @@ spec:
             env:
             - name: URL
               value: "postgres://admin:123456@postgres-service:5432/postgres"
+            volumeMounts:
+                - name: backup-volume
+                  mountPath: /backup
+          volumes:
+            - name: backup-volume
+              persistentVolumeClaim:
+                claimName: todo-backup-claim
           restartPolicy: OnFailure

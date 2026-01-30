@@ -3,8 +3,10 @@ set -e
 
 if [ $URL ]
 then
-  pg_dump -v $URL > /usr/src/app/backup.sql
+  mkdir -p /backup
 
-  echo "Not sending the dump actually anywhere"
-  # curl -F ‘data=@/usr/src/app/backup.sql’ https://somewhere
+  TIMESTAMP="$(date -u +%Y%m%dT%H%M%SZ)"
+  BACKUP_DESTINATION="backup-${TIMESTAMP}.sql"
+  
+  pg_dump -v $URL > /backup/$BACKUP_DESTINATION
 fi
