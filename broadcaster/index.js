@@ -21,10 +21,9 @@ const forwardToExternalService = async (message) => {
             });
             nc.publish('MAPPER_STATUS', JSON.stringify({ user: 'broadcaster', message: 'Message forwarded' }))
         } else {
-            const data = JSON.stringify(message);
             console.log(`\n`)
-            console.log(`From ${data.message.user}:\n`)
-            console.log(`${data.message.message}\n`)
+            console.log(`From ${message.user}:\n`)
+            console.log(`${message.message}\n`)
             console.log(`\n`)
         }
     } catch (error) {
