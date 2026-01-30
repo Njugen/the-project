@@ -11,16 +11,22 @@ nc.subscribe("MAPPER_STATUS", (message) => {
 });
 
 const checkTopic = async (subject) => {
-
+    console.log("A")
     const ready = await new Promise((resolve, reject) => {
+        console.log("B")
         const subscription = nc.subscribe(subject, (message) => {
+            console.log("C")
             if (!message) {
                 reject('No listeners found')
                 return
             }
+            console.log("D")
             resolve("Subscribed successfully")
+            console.log("E")
         })
+        console.log("F")
         reject("Failed to check subscription");
+        console.log("G")
     })
 
     nc.unsubscribe(ready);
