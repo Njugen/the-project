@@ -4,19 +4,19 @@ kind: Kustomization
 images:
 - name: CRONJOB-PUBLISH
   newName: njugen/todo-publish
-  newTag: 54ef1af7f67dcc895b38b7f8bb53da7472023a0b
+  newTag: 4d2eafa0cdd79ea975727218906880fd5c088354
 - name: JOB-BACKUP
   newName: njugen/todo-backup
-  newTag: 54ef1af7f67dcc895b38b7f8bb53da7472023a0b
+  newTag: 4d2eafa0cdd79ea975727218906880fd5c088354
 - name: TODO-BACKEND
   newName: njugen/todo-backend
-  newTag: 54ef1af7f67dcc895b38b7f8bb53da7472023a0b
+  newTag: 4d2eafa0cdd79ea975727218906880fd5c088354
 - name: TODO-BROADCASTER
   newName: njugen/todo-broadcaster
-  newTag: 54ef1af7f67dcc895b38b7f8bb53da7472023a0b
+  newTag: 4d2eafa0cdd79ea975727218906880fd5c088354
 - name: TODO-FRONTEND
   newName: njugen/todo-app
-  newTag: 54ef1af7f67dcc895b38b7f8bb53da7472023a0b
+  newTag: 4d2eafa0cdd79ea975727218906880fd5c088354
 
 resources:
 - configmap.yaml
