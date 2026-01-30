@@ -20,7 +20,7 @@ const checkTopic = async (subject) => {
             }
             resolve("Subscribed successfully")
         })
-
+        rejct("Failed to check subscription");
     })
 
     nc.unsubscribe(ready);
