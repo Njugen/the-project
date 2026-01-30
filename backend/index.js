@@ -10,7 +10,7 @@ const db = require('./scripts/utils/database');
 const { sendDataToNATS } = require('./scripts/utils/nats');
 
 const port = process.env.PORT || 3000;
-console.log("PORT", port);
+
 let databaseInitialized = false;
 
 const getRandomImage = (req, res) => {
@@ -217,7 +217,7 @@ const server = http.createServer((req, res) => {
         }
     } else if (methodToLower === 'put') {
         if (pathname.startsWith('/todos')) {
-            console.log("TODO UPDATE request received. Processing...")
+
             return updateTodoItems(req, res).catch(err => {
                 console.error("Failed to update the Todo item:", err);
                 res.statusCode = 500;

@@ -9,19 +9,7 @@ const nc = NATS.connect(
 
 let isBusy = false;
 const isProduction = process.env.DEPENV === 'production';
-console.log("IS PRODUCTION:", isProduction);
-
 const forwardToExternalService = async (message) => {
-    /*
-        message {
-            user: string,
-            message: string
-        }
-    */
-
-    console.log("Broadcaster B");
-    console.log("Forwarding to external service:", message);
-
     isBusy = true;
     try {
 
@@ -33,7 +21,8 @@ const forwardToExternalService = async (message) => {
             });
             nc.publish('MAPPER_STATUS', JSON.stringify({ user: 'broadcaster', message: 'Message forwarded' }))
         } else {
-            console.log(JSON.stringify(message));
+            const data = JSON.stringify(message);
+            console.log(`${data.message}`)
         }
     } catch (error) {
         console.error("Error forwarding to external service:", error);
