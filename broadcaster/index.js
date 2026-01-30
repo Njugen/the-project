@@ -21,9 +21,9 @@ const forwardToExternalService = async (message) => {
             });
             nc.publish('MAPPER_STATUS', JSON.stringify({ user: 'broadcaster', message: 'Message forwarded' }))
         } else {
-            console.log(`\n`)
-            console.log(`From ${message.user}:\n`)
-            console.log(`${message.message}\n`)
+            console.log(`From ${message.user}:`)
+            console.log(`${message.message}`)
+            console.log(``)
         }
     } catch (error) {
         console.error("Error forwarding to external service:", error);
