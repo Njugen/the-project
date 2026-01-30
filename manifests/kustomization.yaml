@@ -7,13 +7,13 @@ images:
   newTag: e8fce98fe4526af88eafca8d2b7862cd41563151
 - name: TODO-BACKEND
   newName: njugen/todo-backend
-  newTag: e8fce98fe4526af88eafca8d2b7862cd41563151
+  newTag: 97f8875d4fe7758e633a3a4b3392f39fd18a8a0b
 - name: TODO-BROADCASTER
   newName: njugen/todo-broadcaster
-  newTag: e8fce98fe4526af88eafca8d2b7862cd41563151
+  newTag: 97f8875d4fe7758e633a3a4b3392f39fd18a8a0b
 - name: TODO-FRONTEND
   newName: njugen/todo-app
-  newTag: e8fce98fe4526af88eafca8d2b7862cd41563151
+  newTag: 97f8875d4fe7758e633a3a4b3392f39fd18a8a0b
 
 resources:
 - configmap.yaml
