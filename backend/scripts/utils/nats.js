@@ -28,8 +28,6 @@ const checkTopic = async (subject) => {
         resolve("Failed to check subscription");
         console.log("G")
     })
-
-    nc.unsubscribe(ready);
 }
 
 const sendDataToNATS = async (subject, message, completed) => {
