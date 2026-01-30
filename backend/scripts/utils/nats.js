@@ -13,9 +13,10 @@ nc.subscribe("MAPPER_STATUS", (message) => {
 const checkTopic = async (subject) => {
     const ready = await new Promise((resolve, reject) => {
         const subscription = nc.subscribe(subject, (message) => {
+            console.log("AAAAA", message);
             if (!message) {
                 reject('No listeners found')
-                return
+
             }
             resolve("Subscribed successfully")
         })
