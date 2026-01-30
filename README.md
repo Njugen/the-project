@@ -59,4 +59,11 @@ git tag -f v1.0.0
 git push origin v1.0.0
 ```
 
-You may make some changes and/or make new commits and pushes to observe.
+You may make some changes and/or make new commits and pushes to observe. Just do a portforward on the app (accessible at http://localhost:3005), and use Argo (http://localhost:8080) to enjoy the magic!
+
+
+```
+kubectl port-forward <TODO APP POD NAME> 3005:3000 -n NAMESPACE
+```
+
+Where NAMESPACE is either ``the-project-staging`` or ``the-project-production``.
