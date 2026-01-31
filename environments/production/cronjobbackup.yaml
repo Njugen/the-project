@@ -21,4 +21,11 @@ spec:
             env:
             - name: URL
               value: "postgres://admin:123456@postgres-service:5432/postgres"
+            volumeMounts:
+                - name: backup-volume
+                  mountPath: /backup
+          volumes:
+            - name: backup-volume
+              persistentVolumeClaim:
+                claimName: todo-backup-claim
           restartPolicy: OnFailure

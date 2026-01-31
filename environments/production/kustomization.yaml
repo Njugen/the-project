@@ -6,9 +6,9 @@ images:
     newTag: e8fce98fe4526af88eafca8d2b7862cd41563151
 resources:
   - namespace.yaml
-  - cronjobbackup.yaml
   - pv.yaml
   - pvc.yaml
+  - cronjobbackup.yaml
   - ./../../manifests
 namespace: the-project-production
 patches:
